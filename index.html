@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="theme-color" content="#1A1A1A">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Школа Бокса Алексея Климцева</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Школа Бокса</h1>
+            <nav style="align-items: center;"> 
+                <a href="https://vk.ru/one_left_86" target="_blank" class="social-link" aria-label="Мы ВКонтакте">
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.073 2.5H8.927C4.197 2.5 2.5 4.197 2.5 8.927v6.146c0 4.73 1.697 6.427 6.427 6.427h6.146c4.73 0 6.427-1.697 6.427-6.427V8.927c0-4.73-1.697-6.427-6.427-6.427zM16.42 16.884c-.81.0-1.226-.644-1.898-1.498-.518-.69-1.396-1.564-2.158-1.498-.552.046-.576.806-.576 2.372 0 .346-.116.668-.992.668-2.674 0-5.18-3.04-6.562-6.586-.23-.576.208-.852.876-.852h1.406c.414 0 .576.184.738.552 1.036 2.372 2.234 3.73 2.764 2.878.208-.346.162-1.958-.852-2.396-.53-.23-1.036-.208-1.544-.208-1.036.0-1.842.138-2.072.76-.046.138-.276.162-.438.07-.3-.208-.184-1.014 1.128-1.544 1.45-.576 4.304-.46 4.972.552.276.414.23 2.05.992 2.21.392.092.992-.484 2.142-2.372.23-.392.506-.552 1.106-.552h1.406c.644 0 .784.322.622.76-.714 1.842-3.13 4.512-3.292 4.72-.414.506.07.944.922 1.842 1.014 1.06 1.198 1.636.852 1.636h-1.43z"/></svg>
+                </a>
+                <a href="#about">Тренер</a>
+                <a href="#services">Услуги</a>
+                <a href="#" onclick="toggleFAQ(event)">FAQ</a> 
+                <a href="#gallery">Галерея</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>ТВОЯ ПОБЕДА<br>НАЧИНАЕТСЯ ЗДЕСЬ</h2>
+            <p>Профессиональная подготовка под руководством мастера спорта</p>
+            <button class="btn" onclick="openChatWithIntent('записаться')">Записаться на первую тренировку</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>О Тренере и Клубе</h2>
+            <div class="slider-container" id="coach-slider">
+                <button class="nav-arrow left" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="slider-track">
+                    <div class="slide-card">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Атмосфера">
+                        <h3>Атмосфера зала</h3>
+                        <p>Дружеская, но рабочая атмосфера. Здесь каждый находит свою команду.</p>
+                    </div>
+                    <div class="slide-card active">
+                        <img src="https://sun9-87.userapi.com/s/v1/ig2/DbYpElrBOj3MmXHFls2wUQetTy0X4wmlVbzdwb1At7lB1fk7RS8yQ84jOsxFenW1iT29PccJTrXHRs9ddSnymgbf.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,960x1280&from=bu&u=CqY7sHrCR13EMdzh18EaJVAr1TECZHcyFEWLCWY3ogw&cs=240x0" alt="Алексей Климцев">
+                        <h3>Алексей Климцев</h3>
+                        <p>Мастер спорта по боксу.<br>10 лет стажа.<br><b>"Учу не драться, а побеждать."</b><br>Главный тренер школы.</p>
+                    </div>
+                    <div class="slide-card">
+                        <img src="thephoto/sport.JPG" alt="Команда">
+                        <h3>Соревнования</h3>
+                        <p>Регулярные выезды на турниры и открытые ринги для проверки себя.</p>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+            <p style="text-align:center; margin-top:20px; color: #888; font-size: 0.9em;"><small>↔ Листайте карточки или используйте стрелки</small></p>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Наши Услуги</h2>
+            <div class="services">
+                <div class="card">
+                    <img src="thephoto/group.jpg" alt="Групповые тренировки">
+                    <h3>Группа (Взрослые)</h3>
+                    <p>Вт, Чт - 20:00. Сб - 13:00. <br>Работа в парах, снаряды, ОФП и спарринги.</p>
+                </div>
+                <div class="card">
+                    <img src="thephoto/lapa2.jpg" alt="Персональные тренировки">
+                    <h3>Персонально</h3>
+                    <p>Индивидуальная работа на лапах. Постановка техники с нуля и исправление ошибок.</p>
+                </div>
+                <div class="card">
+                    <img src="thephoto/kidss.jpg" alt="Дети">
+                    <h3>Детская группа</h3>
+                    <p>Вт, Чт - 17:00. <br>Дисциплина, ОФП и физическое развитие ребенка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section id="gallery">
+    <div class="container">
+        <h2 style="text-align:center; margin-bottom:20px;">Жизнь в Ринге</h2>
+        <div class="masonry-grid">
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="thephoto/IMG_6809.jpg" alt="Фото зала"> 
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="thephoto/IMG_7961.jpg" alt="Фото зала"> 
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="thephoto/IMG_6457.jpg" alt="Фото зала"> 
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="thephoto/photo_2026.jpg" alt="Фото зала"> 
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="thephoto/photo_2025.jpg" alt="Фото зала"> 
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact">
+                <div class="card" style="max-width: 600px; width: 100%;">
+                    <h3>Зал в Сургуте</h3>
+                    <p><strong>Адрес:</strong> <a href="https://yandex.ru/maps/-/CLhSjMmp" style="color:var(--bronze); font-weight:bold;">ул. Энергетиков, 47, 2-й блок</a></p>
+                    <p><strong>Связь:</strong> <a href="https://t.me/Klinsmann86rus" style="color:var(--bronze); font-weight:bold;">Telegram</a></p>
+                    <div style="margin-top: 20px;">
+                        <button class="btn" onclick="openChatWithIntent('вопрос')">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Школа Бокса Алексея Климцева.</p>
+    </footer>
+
+    <div id="chat-overlay" onclick="forceCloseChat()"></div> 
+    <div id="chatbot" onclick="toggleChat(event)">
+        <span id="chatbot-icon">💬</span>
+        <div class="notification-dot" id="chat-notify"></div>
+    </div>
+
+    <div id="chat-window">
+        <div id="chat-header">
+            <span>🥊 Помощник Тренера</span>
+            <span onclick="forceCloseChat()">&times;</span>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="user-input" placeholder="Ваш вопрос..." onkeypress="handleKeyPress(event)">
+            <button id="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <div id="faq-modal" class="modal-overlay" onclick="toggleFAQ(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="toggleFAQ(event)">&times;</span>
+
+            <h2>Частые вопросы</h2>
+
+            <div class="faq-tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'general')">📍 Организация</button>
+                <button class="tab-btn" onclick="openTab(event, 'money')">💰 Услуги</button>
+                <button class="tab-btn" onclick="openTab(event, 'goals')">🎯 Результат</button>
+            </div>
+
+            <div class="faq-scroll-area">
+
+                <div id="general" class="tab-content active">
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🕒 Когда и во сколько тренировки?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p><b>Взрослые:</b> Вт, Чт в 20:00.<br><b>Дети:</b> Вт, Чт в 17:00.<br><b>Общая тренировка:</b> Сб в 13:00.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            📍 Где зал и как найти?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Мы находимся на <b>ул. Энергетиков 47, 2-й блок</b>. Вход со двора, поднимайтесь на 3 этаж (ориентируйтесь на вывеску).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            👥 Сколько человек в группе?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>В среднем 10-15 человек. Это оптимальное количество, чтобы тренер успел уделить внимание каждому.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            👶 С какого возраста берете?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Детская группа — <b>с 7 лет</b>. Взрослая группа — с 16 лет и до бесконечности.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            📑 Справка готова, когда приходить?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Приходите на ближайшую тренировку по расписанию за 15 минут до начала. Покажите справку тренеру и переодевайтесь.</p>
+                        </div>
+                    </div>
+                    
+                     <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🤕 Какие бинты купить?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Для новичков лучше всего подойдут <b>хлопковые бинты длиной 3.5 — 4.5 метра</b>.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="money" class="tab-content" style="display: none;">
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            💳 Сколько стоит?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Абонемент на месяц (12 занятий) — <b>5000₽</b>.<br>Пробная тренировка — 600₽.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🤔 Почему так дорого?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Вы платите не за аренду зала, а за опыт тренера. С вами работает <b>Мастер спорта</b> с профильным образованием.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🤼 А есть персональные тренировки?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, время оговаривается индивидуально. Идеально для быстрой постановки техники.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            💻 Занятия онлайн?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Бокс — контактный вид спорта. Мы учим бить вживую, поэтому тренировки только в зале.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🥊 Спарринг с тренером?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>В рамках персональных тренировок — возможно, для отработки защиты. В полную силу тренер с учениками не дерется :)</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="goals" class="tab-content" style="display: none;">
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🏆 Хочу на соревнования, подготовите?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, наша школа регулярно выезжает на турниры. Если есть дух и дисциплина — сделаем чемпиона.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            💣 Сколько времени ставить нокаутёрский удар?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Чтобы «поставить» правильное движение, нужно <b>от 3 до 6 месяцев</b>. Сила удара растет годами.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            ⚖️ Хочу похудеть, поможет?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Бокс сжигает до 1000 ккал за тренировку. Это эффективнее любого фитнеса.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            💪 Хочу накачаться!
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Бокс делает мышцы рельефными и сухими. Если цель — огромная масса, лучше идти в тренажерный зал.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            🛡️ Самооборона?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Бокс даст уверенность, реакцию и поставленный удар, что может спасти в критической ситуации.</p>
+                        </div>
+                    </div>
+
+                     <div class="faq-item">
+                        <div class="faq-question" onclick="toggleAccordion(this)">
+                            📝 У вас есть план тренировок?
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Конечно. Мы работаем по циклам: неделя техники, неделя силы, неделя спаррингов.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div style="margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <button class="btn" style="width: 100%;" onclick="toggleFAQ(event); openChatWithIntent('записаться')">Всё понятно, хочу записаться!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
