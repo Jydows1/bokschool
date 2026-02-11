@@ -221,3 +221,25 @@ section h2 { text-align: center; font-size: 2.2em; color: var(--bronze) !importa
 .social-link svg { width: 24px; height: 24px; fill: white; transition: 0.3s; }
 .social-link:hover svg { fill: var(--bronze); }
 footer { background: #111; padding: 30px; text-align: center; margin-top: 50px; border-top: 1px solid #333; }
+
+/* --- АДАПТИВНОСТЬ ДЛЯ ЧАТА НА ТЕЛЕФОНАХ --- */
+@media (max-width: 480px) {
+    #chat-window {
+        width: auto;        /* Отменяем фиксированные 380px */
+        left: 15px;         /* Отступ слева */
+        right: 15px;        /* Отступ справа */
+        bottom: 15px;       /* Отступ снизу */
+        height: 75vh;       /* Высота 75% от экрана (чтобы было удобнее) */
+    }
+
+    /* Чуть уменьшаем отступы внутри чата для экономии места */
+    #chat-messages {
+        padding: 15px;
+    }
+    
+    /* Скрываем кнопку вызова чата, когда само окно открыто,
+       чтобы она не перекрывала контент */
+    .chat-open ~ #chatbot {
+        display: none;
+    }
+}
