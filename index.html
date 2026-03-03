@@ -1,364 +1,249 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta name="theme-color" content="#1A1A1A">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#111111">
+    
     <title>Школа Бокса Алексея Климцева</title>
     
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Профессиональная школа бокса Алексея Климцева в Сургуте. Тренировки для взрослых и юниоров, постановка нокаутирующего удара.">
+    <meta property="og:title" content="Школа Бокса Алексея Климцева">
+    <meta property="og:description" content="Искусство побеждать. Запишись на пробную тренировку прямо сейчас.">
+    <meta property="og:image" content="qphoto/coach.jpg">
+    <meta property="og:type" content="website">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <h1>Школа Бокса</h1>
-            <nav style="align-items: center;"> 
-                <a href="https://vk.ru/one_left_86" target="_blank" class="social-link" aria-label="Мы ВКонтакте">
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.073 2.5H8.927C4.197 2.5 2.5 4.197 2.5 8.927v6.146c0 4.73 1.697 6.427 6.427 6.427h6.146c4.73 0 6.427-1.697 6.427-6.427V8.927c0-4.73-1.697-6.427-6.427-6.427zM16.42 16.884c-.81.0-1.226-.644-1.898-1.498-.518-.69-1.396-1.564-2.158-1.498-.552.046-.576.806-.576 2.372 0 .346-.116.668-.992.668-2.674 0-5.18-3.04-6.562-6.586-.23-.576.208-.852.876-.852h1.406c.414 0 .576.184.738.552 1.036 2.372 2.234 3.73 2.764 2.878.208-.346.162-1.958-.852-2.396-.53-.23-1.036-.208-1.544-.208-1.036.0-1.842.138-2.072.76-.046.138-.276.162-.438.07-.3-.208-.184-1.014 1.128-1.544 1.45-.576 4.304-.46 4.972.552.276.414.23 2.05.992 2.21.392.092.992-.484 2.142-2.372.23-.392.506-.552 1.106-.552h1.406c.644 0 .784.322.622.76-.714 1.842-3.13 4.512-3.292 4.72-.414.506.07.944.922 1.842 1.014 1.06 1.198 1.636.852 1.636h-1.43z"/></svg>
-                </a>
-                <a href="#about">Тренер</a>
-                <a href="#services">Услуги</a>
-                <a href="#" onclick="toggleFAQ(event)">FAQ</a> 
-                <a href="#gallery">Галерея</a>
-                <a href="#contact">Контакты</a>
+        <div class="container nav-wrapper">
+            <nav>
+                <div class="logo">Школа <span>Бокса</span></div>
+                <div class="links">
+                    <a href="#about">Тренер</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#faq">FAQ</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <h2>ТВОЯ ПОБЕДА<br>НАЧИНАЕТСЯ ЗДЕСЬ</h2>
-            <p>Профессиональная подготовка под руководством мастера спорта</p>
-            <button class="btn" onclick="openChatWithIntent('записаться')">Записаться на первую тренировку</button>
-        </div>
-    </section>
-
-    <section id="about">
         <div class="container">
-            <h2>О Тренере и Клубе</h2>
-            <div class="slider-container" id="coach-slider">
-                <button class="nav-arrow left" onclick="moveSlide(-1)">&#10094;</button>
-                <div class="slider-track">
-                    <div class="slide-card">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Атмосфера">
-                        <h3>Атмосфера зала</h3>
-                        <p>Дружеская, но рабочая атмосфера. Здесь каждый находит свою команду.</p>
-                    </div>
-                    <div class="slide-card active">
-                        <img src="https://sun9-87.userapi.com/s/v1/ig2/DbYpElrBOj3MmXHFls2wUQetTy0X4wmlVbzdwb1At7lB1fk7RS8yQ84jOsxFenW1iT29PccJTrXHRs9ddSnymgbf.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,960x1280&from=bu&u=CqY7sHrCR13EMdzh18EaJVAr1TECZHcyFEWLCWY3ogw&cs=240x0" alt="Алексей Климцев">
-                        <h3>Алексей Климцев</h3>
-                        <p>Мастер спорта по боксу.<br>10 лет стажа.<br><b>"Учу не драться, а побеждать."</b><br>Главный тренер школы.</p>
-                    </div>
-                    <div class="slide-card">
-                        <img src="thephoto/sport.jpg" alt="Команда">
-                        <h3>Соревнования</h3>
-                        <p>Регулярные выезды на турниры и открытые ринги для проверки себя.</p>
-                    </div>
-                </div>
-                <button class="nav-arrow right" onclick="moveSlide(1)">&#10095;</button>
-            </div>
-            <p style="text-align:center; margin-top:20px; color: #888; font-size: 0.9em;"><small>↔ Листайте карточки или используйте стрелки</small></p>
+            <h1>Искусство<br><span>побеждать.</span></h1>
+            <p>Профессиональная подготовка под руководством мастера спорта. Без лишней воды, только дисциплина и результат.</p>
+            <a href="#contacts" class="btn">Записаться на тренировку</a>
         </div>
     </section>
 
     <section id="services">
         <div class="container">
-            <h2>Наши Услуги</h2>
-            <div class="services">
-                <div class="card">
-                    <img src="thephoto/group.jpg" alt="Групповые тренировки">
-                    <h3>Группа (Взрослые)</h3>
-                    <p>Вт, Чт - 20:00. Сб - 13:00. <br>Работа в парах, снаряды, ОФП и спарринги.</p>
+            <div class="section-header">
+                <h2>Форматы и цены</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-top">
+                        <div class="card-icon">🥊</div>
+                        <div class="pricing-badge">Популярно</div>
+                    </div>
+                    <h3>Группа</h3>
+                    <p class="pricing-desc">Вт, Чт — 20:00 · Сб — 13:00<br>Работа в парах, снаряды, ОФП и спарринги. Взрослые и юниоры вместе.</p>
+                    <div class="pricing-price">
+                        <span class="price-amount">5 000 ₽</span>
+                        <span class="price-period">/ месяц</span>
+                    </div>
+                    <a href="#contacts" class="btn pricing-btn">Записаться</a>
                 </div>
-                <div class="card">
-                    <img src="thephoto/lapa2.jpg" alt="Персональные тренировки">
+                <div class="pricing-card reveal">
+                    <div class="pricing-top">
+                        <div class="card-icon">🎯</div>
+                    </div>
                     <h3>Персонально</h3>
-                    <p>Индивидуальная работа на лапах. Постановка техники с нуля и исправление ошибок.</p>
+                    <p class="pricing-desc">Индивидуальная работа на лапах. Постановка техники с нуля, точечное исправление ошибок.</p>
+                    <div class="pricing-price">
+                        <span class="price-amount">600 ₽</span>
+                        <span class="price-period">/ занятие</span>
+                    </div>
+                    <a href="#contacts" class="btn pricing-btn">Записаться</a>
                 </div>
-                <div class="card">
-                <img src="thephoto/kidss.jpg" alt="Дети">
-    <h3>Дети и Юниоры</h3>
-    <p>Занятия в общей группе.<br>Вт, Чт - 20:00. Сб - 13:00.<br>Дисциплина, пример старших и мощное ОФП.</p>
-</div>
+                <div class="pricing-card reveal trial-card">
+                    <div class="pricing-top">
+                        <div class="card-icon">⚡</div>
+                    </div>
+                    <h3>Пробная</h3>
+                    <p class="pricing-desc">Приходи и посмотри как всё устроено. Первое занятие — оцени атмосферу без обязательств.</p>
+                    <div class="pricing-price">
+                        <span class="price-amount">600 ₽</span>
+                        <span class="price-period">/ первый раз</span>
+                    </div>
+                    <a href="#contacts" class="btn pricing-btn">Попробовать</a>
+                </div>
             </div>
         </div>
     </section>
 
-   <section id="gallery">
-    <div class="container">
-        <h2 style="text-align:center; margin-bottom:20px;">Жизнь в Ринге</h2>
-        <div class="masonry-grid">
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <img src="thephoto/IMG_6809.jpg" alt="Фото зала"> 
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <img src="thephoto/IMG_7961.jpg" alt="Фото зала"> 
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <img src="thephoto/IMG_6457.jpg" alt="Фото зала"> 
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <img src="thephoto/photo_2026.jpg" alt="Фото зала"> 
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <img src="thephoto/photo_2025.jpg" alt="Фото зала"> 
-            </div>
-        </div>
-    </div>
-</section>
-
-    <section id="contact">
+    <section id="about">
         <div class="container">
-            <h2>Контакты</h2>
-            <div class="contact">
-                <div class="card" style="max-width: 600px; width: 100%;">
-                    <h3>Зал в Сургуте</h3>
-                    <p><strong>Адрес:</strong> <a href="https://yandex.ru/maps/-/CLhSjMmp" style="color:var(--bronze); font-weight:bold;">ул. Энергетиков, 47, 2-й блок</a></p>
-                    <p><strong>Связь:</strong> <a href="https://t.me/Klinsmann86rus" style="color:var(--bronze); font-weight:bold;">Telegram</a></p>
-                    <div style="margin-top: 20px;">
-                        <button class="btn" onclick="openChatWithIntent('вопрос')">Записаться</button>
+            <div class="trainer-card reveal">
+                <div class="trainer-grid">
+                    <div class="photo-wrapper">
+                        <img src="qphoto/coach.jpg" alt="Алексей Климцев">
+                    </div>
+                    <div>
+                        <span style="color: var(--accent-bright); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">Главный тренер</span>
+                        <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 10px 0 20px; font-weight: 800; letter-spacing: 0px; text-transform: uppercase;">Алексей Климцев</h2>
+                        <p style="margin-bottom: 20px; color: var(--text-muted);">Мастер спорта по боксу с 10-летним стажем. Моя методика — это не просто физика, это стратегия и дисциплина ума.</p>
+                        
+                        <ul style="list-style: none; color: var(--text-main); font-size: 0.95rem; font-weight: 500;">
+                            <li style="margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">Индивидуальный подход к каждому ученику</li>
+                            <li style="margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">Подготовка к любительским турнирам</li>
+                            <li>Постановка нокаутирующего удара с нуля</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>В зале</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item gallery-large reveal">
+                    <img src="qphoto/group.jpg" alt="Тренировка" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        <span>photos/photo1.jpg</span>
+                    </div>
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="qphoto/kidss.jpg" alt="Тренировка" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        <span>photos/photo2.jpg</span>
+                    </div>
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="qphoto/photo_2025.jpg" alt="Тренировка" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        <span>photos/photo3.jpg</span>
+                    </div>
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="photos/photo4.jpg" alt="Тренировка" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        <span>photos/photo4.jpg</span>
+                    </div>
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item gallery-wide reveal">
+                    <img src="photos/photo5.jpg" alt="Тренировка" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        <span>photos/photo5.jpg</span>
+                    </div>
+                    <div class="gallery-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="cta-section reveal">
+        <div class="container">
+            <h2>Готов начать?</h2>
+            <p><a href="https://yandex.com/maps/-/CPqzuDkk" target="_blank" style="color: var(--text-muted); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.2); text-underline-offset: 4px;">Сургут. ул. Энергетиков, 47 (2-й блок)</a></p>
+            <a href="https://t.me/Klinsmann86rus" target="_blank" class="btn">Написать тренеру</a>
+        </div>
+    </section> 
+    
     <footer>
-        <p>&copy; 2026 Школа Бокса Алексея Климцева.</p>
+        <div class="container footer-content">
+            <a href="https://vk.com/one_left_86" target="_blank" class="vk-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.059-1.604 1.488 1.488 1.796 2.519 3.603 2.519h3.2c.808 0 1.126-.26 1.126-.668 0-.863-1.421-2.386-2.625-3.504-1.686-1.565-1.765-1.602-.313-3.486 1.801-2.339 4.157-5.336 2.073-5.336h-3.981c-.772 0-.828.435-1.103 1.083-.995 2.347-2.886 5.387-3.604 4.922-.751-.485-.407-2.406-.35-5.261.015-.754.011-1.271-1.141-1.539-.629-.145-1.241-.205-1.809-.205-2.273 0-3.841.953-2.95 1.119 1.571.293 1.42 3.692 1.054 5.16-.638 2.556-3.036-2.024-4.035-4.305-.241-.548-.515-1.074-1.114-1.074H1.2c-.687 0-.745.361-.745.74 0 1.259 3.251 8.216 7.022 12.006 3.033 3.037 6.425 2.983 5.685 2.983z"/>
+                </svg>
+                <span>Трансляции турниров и жизнь школы в VK</span>
+            </a>
+            <div class="copyright">
+                © 2026 Школа Бокса Алексея Климцева
+            </div>
+        </div>
     </footer>
 
-    <div id="chat-overlay" onclick="forceCloseChat()"></div> 
-    <div id="chatbot" onclick="toggleChat(event)">
-        <span id="chatbot-icon">💬</span>
-        <div class="notification-dot" id="chat-notify"></div>
+    <div class="faq-overlay" id="faqOverlay"></div>
+    <div class="faq-sidebar" id="faqSidebar">
+        <div class="faq-header">
+            <h3>Частые вопросы</h3>
+            <button class="faq-close" id="faqClose">&times;</button>
+        </div>
+        
+        <div class="faq-content-scroll">
+            <div class="faq-category">Для новичков</div>
+            <details><summary>Когда и во сколько тренировки?</summary><p>Вт, Чт в 20:00. Суббота 13:30.</p></details>
+            <details><summary>Где и как найти зал?</summary><p>Мы находимся на ул. Энергетиков 47, 2-й блок. Вход со двора.</p></details>
+            <details><summary>Сколько человек в группе?</summary><p>В среднем 10-15 человек. Это оптимальное количество, чтобы тренер успел уделить внимание каждому.</p></details>
+            <details><summary>С какого возраста берете?</summary><p>Детская группа — с 7 лет. Взрослая группа — с 16 лет и до бесконечности.</p></details>
+            <details><summary>Справка готова, когда приходить?</summary><p>Приходите на ближайшую тренировку по расписанию за 15 минут до начала. Покажите справку тренеру и переодевайтесь.</p></details>
+            <details><summary>Какие бинты купить?</summary><p>Для новичков лучше всего подойдут хлопковые бинты длиной 3.5 — 4.5 метра.</p></details>
+            
+            <div class="faq-category">Услуги</div>
+            <details><summary>Сколько стоит?</summary><p>Абонемент на месяц (12 занятий) — 5000₽.</p></details>
+            <details><summary>Почему так дорого?</summary><p>Вы платите за опыт тренера, который страхует вас от травм и ошибок новичка. Это дешевле, чем лечить суставы после неправильных тренировок.</p></details>
+            <details><summary>А есть персональные тренировки?</summary><p>Да. Вы можете заниматься индивидуально сразу после общей группы. Это лучший способ быстро «почистить» технику: тренер разберет именно ваши ошибки и поставит правильный удар. Всё внимание в это время — только вам.</p></details>
+            <details><summary>Занятия онлайн?</summary><p>Дистанционно боксу не научить. Мы работаем только оффлайн. Для самостоятельных занятий у нас можно получить готовый план тренировок.</p></details>
+            <details><summary>Спарринг с тренером?</summary><p>Тренер не спаррингуется, а обучает. Вся работа по исправлению ошибок идет на лапах и в отработках. Спарринги проводятся только между учениками под строгим присмотром тренера.</p></details>
+
+            <div class="faq-category">Тренировочный процесс</div>
+            <details><summary>Хочу на соревнования, подготовите?</summary><p>Да, наша школа регулярно выезжает на турниры. Если есть дух и дисциплина — сделаем чемпиона.</p></details>
+            <details><summary>Сколько времени ставить нокаутерский удар?</summary><p>Если вы совсем не занимались спортом и не били никогда по мешку то может понадобится от 6 до 12 месяцев. Сила удара растет годами.</p></details>
+            <details><summary>Хочу похудеть, поможет?</summary><p>Тренировка средней интенсивности: 600–800 ккал. Высокоинтенсивная работа (спарринги, активная работа на лапах и снарядах): 850–1000+ ккал.</p></details>
+            <details><summary>Хочу накачаться!</summary><p>Бокс делает мышцы рельефными и сухими. Если цель — огромная масса, лучше идти в тренажерный зал.</p></details>
+            <details><summary>Самооборона?</summary><p>Бокс даст уверенность, реакцию и поставленный удар, что может спасти в критической ситуации.</p></details>
+            <details><summary>У вас есть план тренировок?</summary><p>Конечно. Мы работаем по циклам: неделя техники, неделя силы, неделя спаррингов.</p></details>    
+        </div>
     </div>
 
-    <div id="chat-window">
-        <div id="chat-header">
-            <span>🥊 Помощник Тренера</span>
-            <span onclick="forceCloseChat()">&times;</span>
-        </div>
-        <div id="chat-messages"></div>
-        <div id="chat-input-area">
-            <input type="text" id="user-input" placeholder="Ваш вопрос..." onkeypress="handleKeyPress(event)">
-            <button id="send-btn" onclick="sendMessage()">➤</button>
-        </div>
-    </div>
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-toggle" id="chatToggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
 
-    <div id="faq-modal" class="modal-overlay" onclick="toggleFAQ(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="toggleFAQ(event)">&times;</span>
-
-            <h2>Частые вопросы</h2>
-
-            <div class="faq-tabs">
-                <button class="tab-btn active" onclick="openTab(event, 'general')">📍 Организация</button>
-                <button class="tab-btn" onclick="openTab(event, 'money')">💰 Услуги</button>
-                <button class="tab-btn" onclick="openTab(event, 'goals')">🎯 Результат</button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-title">Ассистент тренера</div>
             </div>
-
-            <div class="faq-scroll-area">
-
-                <div id="general" class="tab-content active">
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🕒 Когда и во сколько тренировки?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p><b>Взрослые:</b> Вт, Чт в 20:00.<br><b>Дети:</b> Вт, Чт в 20:00.<br><b>Общая тренировка:</b> Сб в 13:00.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            📍 Где зал и как найти?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Мы находимся на <b>ул. Энергетиков 47, 2-й блок</b>. Вход со двора.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            👥 Сколько человек в группе?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>В среднем 10-15 человек. Это оптимальное количество, чтобы тренер успел уделить внимание каждому.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            👶 С какого возраста берете?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Детская группа — <b>с 7 лет</b>. Взрослая группа — с 16 лет и до бесконечности.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            📑 Справка готова, когда приходить?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Приходите на ближайшую тренировку по расписанию за 15 минут до начала. Покажите справку тренеру и переодевайтесь.</p>
-                        </div>
-                    </div>
-                    
-                     <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🤕 Какие бинты купить?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Для новичков лучше всего подойдут <b>хлопковые бинты длиной 3.5 — 4.5 метра</b>.</p>
-                        </div>
-                    </div>
-
+            <div class="chat-messages" id="chatMessages">
                 </div>
-
-                <div id="money" class="tab-content" style="display: none;">
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            💳 Сколько стоит?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Абонемент на месяц (12 занятий) — <b>5000₽</b>.
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🤔 Почему так дорого?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Вы платите за опыт тренера, который страхует вас от травм и ошибок новичка. Это дешевле, чем лечить суставы после неправильных тренировок.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🤼 А есть персональные тренировки?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Да. Вы можете заниматься индивидуально сразу после общей группы. Это лучший способ быстро «почистить» технику: тренер разберет именно ваши ошибки и поставит правильный удар. Всё внимание в это время — только вам.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            💻 Занятия онлайн?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Дистанционно боксу не научить. Мы работаем только оффлайн. Для самостоятельных занятий у нас можно получить готовый план тренировок.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🥊 Спарринг с тренером?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Тренер не спаррингуется, а обучает. Вся работа по исправлению ошибок идет на лапах и в отработках. Спарринги проводятся только между учениками под строгим присмотром тренера.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div id="goals" class="tab-content" style="display: none;">
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🏆 Хочу на соревнования, подготовите?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Да, наша школа регулярно выезжает на турниры. Если есть дух и дисциплина — сделаем чемпиона.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            💣 Сколько времени ставить нокаутёрский удар?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Если вы совсем не занимались спортом и не били никогда по мешку то может понадобится <b>от 6 до 12 месяцев</b>. Сила удара растет годами.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            ⚖️ Хочу похудеть, поможет?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Тренировка средней интенсивности: 600–800 ккал. Высокоинтенсивная работа (спарринги, активная работа на лапах и снарядах): 850–1000+ ккал.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            💪 Хочу накачаться!
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Бокс делает мышцы рельефными и сухими. Если цель — огромная масса, лучше идти в тренажерный зал.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            🛡️ Самооборона?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Бокс даст уверенность, реакцию и поставленный удар, что может спасти в критической ситуации.</p>
-                        </div>
-                    </div>
-
-                     <div class="faq-item">
-                        <div class="faq-question" onclick="toggleAccordion(this)">
-                            📝 У вас есть план тренировок?
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Конечно. Мы работаем по циклам: неделя техники, неделя силы, неделя спаррингов.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div style="margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                <button class="btn" style="width: 100%;" onclick="toggleFAQ(event); openChatWithIntent('записаться')">Всё понятно, хочу записаться!</button>
+            
+            <div class="chat-options" id="chatOptions"></div>
+            
+            <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                <input type="text" id="chatTextInput" placeholder="Введи Имя и Фамилию..." autocomplete="off">
+                <button id="chatTextSubmit">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="lightbox" onclick="closeLightbox()">
-        <span class="close-btn">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
-    </div>
-
-   <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,380 +1,243 @@
-let isChatInitiated = false;
+document.addEventListener("DOMContentLoaded", () => {
 
-// --- ЛОГИКА FAQ (ОСТАВИЛИ БЕЗ ИЗМЕНЕНИЙ) ---
-function toggleFAQ(event) {
-    if (event) event.preventDefault();
-    const modal = document.getElementById('faq-modal');
-    if (modal.classList.contains('open')) {
-        modal.classList.remove('open');
-        setTimeout(() => { modal.style.display = 'none'; }, 300);
-    } else {
-        modal.style.display = 'flex';
-        setTimeout(() => { modal.classList.add('open'); }, 10);
-    }
-}
-
-function toggleAccordion(element) {
-    element.classList.toggle('active');
-    const answer = element.nextElementSibling;
-    if (element.classList.contains('active')) {
-        answer.style.maxHeight = answer.scrollHeight + "px";
-    } else {
-        answer.style.maxHeight = "0";
-    }
-}
-
-// --- ЛОГИКА ЧАТА ---
-function toggleChat(event) {
-    if(event) event.stopPropagation();
-    const chatWindow = document.getElementById('chat-window');
-    const overlay = document.getElementById('chat-overlay');
-    const notifyDot = document.getElementById('chat-notify');
-    const chatButton = document.getElementById('chatbot');
-    
-    if (chatWindow.classList.contains('chat-open')) {
-        forceCloseChat();
-    } else {
-        chatWindow.classList.remove('chat-closing');
-        chatWindow.classList.add('chat-open');
-        overlay.style.display = 'block';
-        setTimeout(() => overlay.classList.add('visible'), 10);
-        if(notifyDot) notifyDot.style.display = 'none';
-        if (window.matchMedia && window.matchMedia('(max-width: 480px)').matches) {
-            if (chatButton) chatButton.style.display = 'none';
+// --- 1. АНИМАЦИЯ ПРИ СКРОЛЛЕ ---
+const reveals = document.querySelectorAll('.reveal');
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
         }
-        if (!isChatInitiated) { initBot(); }
-    }
+    });
+}, observerOptions);
+reveals.forEach(reveal => observer.observe(reveal));
+
+// --- 2. ЛОГИКА FAQ ПАНЕЛИ ---
+const faqLink = document.querySelector('a[href="#faq"]');
+const faqSidebar = document.getElementById('faqSidebar');
+const faqOverlay = document.getElementById('faqOverlay');
+const faqClose = document.getElementById('faqClose');
+function toggleFaq(e) {
+    if(e) e.preventDefault();
+    faqSidebar.classList.toggle('open');
+    faqOverlay.classList.toggle('open');
+    document.body.style.overflow = faqSidebar.classList.contains('open') ? 'hidden' : '';
+}
+if(faqLink) faqLink.addEventListener('click', toggleFaq);
+faqClose.addEventListener('click', toggleFaq);
+faqOverlay.addEventListener('click', toggleFaq);
+
+// --- 3. ИНТЕРАКТИВНЫЙ ЧАТ-БОТ (ВОРОНКА С КОНТАКТАМИ) ---
+const chatToggle = document.getElementById('chatToggle');
+const chatWindow = document.getElementById('chatWindow');
+const chatMessages = document.getElementById('chatMessages');
+const chatOptions = document.getElementById('chatOptions');
+const chatInputArea = document.getElementById('chatInputArea');
+const chatTextInput = document.getElementById('chatTextInput');
+const chatTextSubmit = document.getElementById('chatTextSubmit');
+
+// Состояние: name (ввод имени) или contact (ввод телефона/TG)
+let inputState = 'name'; 
+let bookingData = { day: '', name: '', contact: '' };
+
+function getUpcomingDate(targetDay) {
+    const date = new Date();
+    const today = date.getDay();
+    let daysAhead = targetDay - today;
+    if (daysAhead <= 0) daysAhead += 7; 
+    date.setDate(date.getDate() + daysAhead);
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
 }
 
-function forceCloseChat() {
-    const chatWindow = document.getElementById('chat-window');
-    const overlay = document.getElementById('chat-overlay');
-    const chatButton = document.getElementById('chatbot');
-    if (!chatWindow.classList.contains('chat-open')) return;
-    chatWindow.classList.remove('chat-open');
-    chatWindow.classList.add('chat-closing');
-    overlay.classList.remove('visible');
-    setTimeout(() => {
-        chatWindow.classList.remove('chat-closing');
-        overlay.style.display = 'none';
-        if (chatButton) chatButton.style.display = '';
-    }, 300);
-}
+chatToggle.addEventListener('click', () => {
+    chatWindow.classList.toggle('open');
+    if(chatMessages.innerHTML.trim() === '') showMainMenu(true);
+});
 
-function openChatWithIntent(intent) {
-    const chatWindow = document.getElementById('chat-window');
-    if (!chatWindow.classList.contains('chat-open')) {
-        toggleChat();
-        setTimeout(() => processUserMessage(intent), 400);
-    } else {
-        processUserMessage(intent);
-    }
-}
-
-// --- БАЗА ЗНАНИЙ БОТА (ОБНОВЛЕННАЯ: БЕЗ ЦЕН) ---
-// Убрали кнопку "Оплата" из главного меню
-const MAIN_MENU_CHIPS = ['📅 Расписание', '❓ Частые вопросы', '✍️ Записаться', '🎒 Что взять?', '📍 Где зал?'];
-
-const botKnowledge = [
-    {
-        keywords: ['частые вопросы', 'faq', 'вопрос', 'ответы'],
-        answer: "Открываю список частых вопросов! 🧐 Там есть подробности про тренировки и экипировку.",
-        action: 'open_faq', 
-        chips: ['🔙 В главное меню']
-    },
-    { 
-        keywords: ['расписани', 'когда', 'время', 'график'], 
-        answer: "🗓 Тренировки проходят:<br>— Вт, Чт: 20:00 (Взрослые)<br>— Вт, Чт: 20:00 (Дети)<br>— Сб: 13:00 (Общая)<br><br>На какое время хотите записаться?", 
-        chips: ['Записаться на 20:00', 'Записаться на 13:00', '🔙 В главное меню'] 
-    },
-    {
-        keywords: ['20:00', '20.00', '19:00', '19.00'], 
-        answer: "Отлично! 👍<br>Ждем вас к <b>20:00</b> на пробную тренировку.<br>Приходите за 15 минут до начала. Не забудьте форму! 🥊",
-        chips: ['📍 Где зал?', '🎒 Что взять?', '🔙 В главное меню']
-    },
-    {
-        keywords: ['13:00', '13.00'],
-        answer: "Отлично! 👍<br>Ждем вас к <b>13:00</b> на пробную тренировку.<br>Приходите за 15 минут до начала. Не забудьте форму! 🥊",
-        chips: ['📍 Где зал?', '🎒 Что взять?', '🔙 В главное меню']
-    },
-    { 
-        // Если спрашивают про цены, отправляем в FAQ или к тренеру
-        keywords: ['цен', 'стоит', 'прайс', 'оплат', 'деньг', 'купить', 'абонемент'], 
-        answer: "💳 Подробности о стоимости занятий и абонементах можно посмотреть в разделе «Частые вопросы» или узнать лично у тренера.<br><br>Первая тренировка — бесплатно!", 
-        action: 'open_faq', 
-        chips: ['✍️ Записаться', '🔙 В главное меню'] 
-    },
-    { 
-        keywords: ['где', 'адрес', 'находитесь', 'карта', 'место', 'зал'], 
-        answer: "📍 Мы тут:<br>г. Сургут, ул. Энергетиков 47, 2-й блок.<br>Вход со двора.<br><br>Парковка есть прямо у входа! 🚗", 
-        action: 'map_link',
-        chips: ['🔙 В главное меню', '✍️ Записаться'] 
-    },
-    { 
-        keywords: ['записа', 'хочу', 'пробн', 'начать'], 
-        answer: "Супер! 🔥 Для записи выберите время тренировки:", 
-        chips: ['Записаться на 20:00', 'Записаться на 13:00']
-    },
-    { 
-        keywords: ['экипиров', 'форма', 'брать', 'перчатк', 'одежда', 'собой', 'взять'], 
-        answer: "🎒 На первую тренировку нужно:<br>1. Спортивная форма (шорты, футболка)<br>2. Кроссовки (обязательно чистые!)<br>3. Вода и полотенце.<br><br>🥊 Перчатки и шлем мы выдадим бесплатно!", 
-        chips: ['📅 Расписание', '✍️ Записаться', '🔙 В главное меню'] 
-    },
-    {
-        keywords: ['меню', 'назад', 'главн'],
-        answer: "Что вас интересует?",
-        chips: MAIN_MENU_CHIPS
-    }
-];
-
-function initBot() {
-    isChatInitiated = true;
-    showTyping();
-    setTimeout(() => {
-        hideTyping();
-        // Убрали проверку подписки, просто приветствие
-        let greeting = "Привет! 👋 Я помощник тренера. Выберите вопрос ниже:";
-        addBotMessage(greeting);
-        showQuickButtons(MAIN_MENU_CHIPS);
-    }, 600);
-}
-
-// --- ФУНКЦИИ СООБЩЕНИЙ ---
-function addMessage(html, type) {
-    const messages = document.getElementById('chat-messages');
+function addMessage(text, sender) {
     const msgDiv = document.createElement('div');
-    msgDiv.className = `message ${type}`;
-    msgDiv.innerHTML = html;
-    messages.appendChild(msgDiv);
-    messages.scrollTop = messages.scrollHeight;
-}
-function addBotMessage(text) { addMessage(text, 'bot-message'); }
-function addUserMessage(text) { addMessage(text, 'user-message'); }
-
-function showTyping() {
-    const messages = document.getElementById('chat-messages');
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'typing-indicator';
-    typingDiv.id = 'typing-indicator';
-    typingDiv.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-    messages.appendChild(typingDiv);
-    messages.scrollTop = messages.scrollHeight;
-}
-function hideTyping() {
-    const typing = document.getElementById('typing-indicator');
-    if (typing) typing.remove();
+    msgDiv.className = `msg ${sender}-msg`;
+    msgDiv.innerHTML = text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function showQuickButtons(options) {
-    const messages = document.getElementById('chat-messages');
-    const btnContainer = document.createElement('div');
-    btnContainer.className = 'quick-replies';
-    options.forEach(text => {
-        const btn = document.createElement('div');
-        btn.className = 'chip';
-        btn.innerText = text;
-        btn.onclick = (event) => {
-            event.stopPropagation();
-            btnContainer.remove(); 
-            addUserMessage(text);
-            processUserMessage(text);
+function showMainMenu(isFirstTime = false) {
+    chatOptions.innerHTML = '';
+    chatOptions.style.display = 'flex';
+    chatInputArea.style.display = 'none';
+
+    if (isFirstTime) {
+        addMessage("Привет! Я виртуальный помощник. Что хочешь узнать перед первой тренировкой?", "bot");
+    }
+
+    const botScripts = {
+        "Расписание?": "Тренировки проходят:<br>— Вт, Чт: 20:00<br>— Сб: 13:00",
+        "Что взять?": "На первую тренировку нужно:<br>1. Спортивная форма (шорты, футболка)<br>2. Кроссовки (обязательно чистые!)<br>3. Вода и полотенце.<br><br>Перчатки и шлем мы выдадим бесплатно!",
+        "Где зал?": "Мы тут:<br>г. Сургут, ул. Энергетиков 47, 2-й блок.<br>Вход со двора."
+    };
+
+    for (let question in botScripts) {
+        const btn = document.createElement('button');
+        btn.className = 'chat-btn';
+        btn.textContent = question;
+        btn.onclick = () => {
+            addMessage(question, 'user');
+            chatOptions.style.display = 'none';
+            setTimeout(() => {
+                addMessage(botScripts[question], 'bot');
+                setTimeout(() => showMainMenu(), 500);
+            }, 500);
         };
-        btnContainer.appendChild(btn);
-    });
-    messages.appendChild(btnContainer);
-    messages.scrollTop = messages.scrollHeight;
-}
-
-function handleKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
-
-function sendMessage() {
-    const input = document.getElementById('user-input');
-    const text = input.value.trim();
-    if (!text) return;
-    addUserMessage(text);
-    input.value = '';
-    const oldChips = document.querySelector('.quick-replies');
-    if(oldChips) oldChips.remove();
-    processUserMessage(text);
-}
-
-function processUserMessage(text) {
-    text = text.toLowerCase();
-    showTyping();
-    setTimeout(() => {
-        hideTyping();
-        let found = false;
-        for (let item of botKnowledge) {
-            if (item.keywords.some(keyword => text.includes(keyword))) {
-                let answerText = (typeof item.answer === 'function') ? item.answer() : item.answer;
-                addBotMessage(answerText);
-                
-                if (item.action === 'telegram_link') { addTelegramButton(); }
-                else if (item.action === 'map_link') { addMapButton(); }
-                else if (item.action === 'open_faq') { toggleFAQ(); }
-                
-                if (item.chips) { 
-                    showQuickButtons(item.chips); 
-                } else {
-                    showQuickButtons(MAIN_MENU_CHIPS);
-                }
-                
-                found = true;
-                break; 
-            }
-        }
-        if (!found) {
-            if (text.length < 3) { 
-                addBotMessage("Пожалуйста, уточните вопрос 😊"); 
-                showQuickButtons(MAIN_MENU_CHIPS);
-            } 
-            else {
-                addBotMessage("Я пока учусь и не знаю ответа. Попробуйте выбрать из меню:");
-                showQuickButtons(MAIN_MENU_CHIPS); 
-            }
-        }
-    }, 600 + Math.random() * 500);
-}
-
-function addTelegramButton(btnText = "Написать в Telegram") {
-    addBotMessage(`<a href="https://t.me/Klinsmann86rus" target="_blank" class="btn pay-link" style="background:#25D366; margin-top:5px;">${btnText}</a>`);
-}
-
-function addMapButton() {
-    addBotMessage(`<a href="https://yandex.ru/maps/-/CLhSjMmp" target="_blank" class="btn pay-link" style="background:#ffcc00; color: #000; margin-top:5px;">🗺 Открыть Яндекс.Карты</a>`);
-}
-
-// --- ЛОГИКА СЛАЙДЕРА ---
-let currentSlideIndex = 1; 
-const slides = document.querySelectorAll('.slide-card');
-const totalSlides = slides.length;
-
-function updateSlider() {
-    if (slides.length === 0) return;
-    slides.forEach((slide, index) => {
-        slide.className = 'slide-card'; 
-        if (index === currentSlideIndex) {
-            slide.classList.add('active');
-            slide.onclick = null; 
-        } 
-        else if (index === currentSlideIndex - 1 || (currentSlideIndex === 0 && index === totalSlides - 1)) {
-            slide.classList.add('prev');
-            slide.onclick = () => moveSlide(-1);
-        } 
-        else if (index === currentSlideIndex + 1 || (currentSlideIndex === totalSlides - 1 && index === 0)) {
-            slide.classList.add('next');
-            slide.onclick = () => moveSlide(1);
-        } 
-        else {
-            slide.classList.add('hidden');
-            slide.onclick = null;
-        }
-    });
-}
-
-function moveSlide(direction) {
-    currentSlideIndex += direction;
-    if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
-    else if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
-    updateSlider();
-}
-
-// --- LIGHTBOX ---
-function openLightbox(element) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    let imgSrc = '';
-
-    if (element.tagName === 'IMG') {
-        imgSrc = element.src;
-    } 
-    else {
-        const img = element.querySelector('img');
-        if (img) imgSrc = img.src;
+        chatOptions.appendChild(btn);
     }
 
-    if (imgSrc && lightbox && lightboxImg) {
-        lightboxImg.src = imgSrc;
-        lightbox.style.display = 'flex';
+    const bookBtn = document.createElement('button');
+    bookBtn.className = 'chat-btn primary-btn';
+    bookBtn.textContent = '🔥 Хочу записаться!';
+    bookBtn.onclick = startBooking;
+    chatOptions.appendChild(bookBtn);
+}
+
+// Шаг 1: Выбор дня
+function startBooking() {
+    addMessage('🔥 Хочу записаться!', 'user');
+    chatOptions.style.display = 'none';
+    
+    setTimeout(() => {
+        addMessage('Отличный настрой! Выбери удобный день для пробной тренировки:', 'bot');
+        
         setTimeout(() => {
-            lightbox.classList.add('show');
-        }, 10);
-        document.body.style.overflow = 'hidden';
-    }
+            chatOptions.innerHTML = '';
+            
+            const days = [
+                { text: `Вторник (${getUpcomingDate(2)}) — 20:00`, val: `Вторник, ${getUpcomingDate(2)} в 20:00` },
+                { text: `Четверг (${getUpcomingDate(4)}) — 20:00`, val: `Четверг, ${getUpcomingDate(4)} в 20:00` },
+                { text: `Суббота (${getUpcomingDate(6)}) — 13:00`, val: `Суббота, ${getUpcomingDate(6)} в 13:00` }
+            ];
+
+            days.forEach(d => {
+                const btn = document.createElement('button');
+                btn.className = 'chat-btn';
+                btn.textContent = d.text;
+                btn.onclick = () => askForName(d.val, d.text);
+                chatOptions.appendChild(btn);
+            });
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.className = 'chat-btn';
+            cancelBtn.textContent = '🔙 Назад';
+            cancelBtn.onclick = () => showMainMenu();
+            chatOptions.appendChild(cancelBtn);
+
+            chatOptions.style.display = 'flex';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 500);
+    }, 500);
 }
 
-function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox) {
-        lightbox.classList.remove('show');
-        setTimeout(() => { 
-            lightbox.style.display = 'none'; 
-            document.body.style.overflow = '';
-            const lightboxImg = document.getElementById('lightbox-img');
-            if(lightboxImg) lightboxImg.src = '';
-        }, 300);
-    }
-}
+// Шаг 2: Ввод Имени
+function askForName(dayValue, displayBtnText) {
+    bookingData.day = dayValue;
+    addMessage(displayBtnText, 'user');
+    chatOptions.style.display = 'none';
 
-// --- ЛОГИКА ВКЛАДОК FAQ ---
-function openTab(evt, tabName) {
-    const tabContents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = "none";
-        tabContents[i].classList.remove("active");
-    }
-    const tabLinks = document.getElementsByClassName("tab-btn");
-    for (let i = 0; i < tabLinks.length; i++) {
-        tabLinks[i].classList.remove("active");
-    }
-    const selectedTab = document.getElementById(tabName);
-    if(selectedTab) {
-        selectedTab.style.display = "block";
-        setTimeout(() => selectedTab.classList.add("active"), 10);
-    }
-    if(evt && evt.currentTarget) {
-        evt.currentTarget.classList.add("active");
-    }
-}
-
-// --- ИНИЦИАЛИЗАЦИЯ ---
-window.onload = function() {
-    updateSlider(); 
-    
-    // Показываем уведомление на чате через 5 сек
     setTimeout(() => {
-        if (!isChatInitiated) {
-            const dot = document.getElementById('chat-notify');
-            if(dot) dot.style.display = 'block';
-        }
-    }, 5000);
-    
-    const sliderContainer = document.getElementById('coach-slider');
-    if(sliderContainer){
-        let startX = 0;
-        let startY = 0;
-        let isSwiping = false;
+        addMessage('Отлично. Напиши свое Имя и Фамилию, чтобы мы внесли тебя в список:', 'bot');
+        setTimeout(() => {
+            inputState = 'name';
+            chatTextInput.placeholder = "Введи Имя и Фамилию...";
+            chatTextInput.type = "text";
+            chatInputArea.style.display = 'flex';
+            chatTextInput.focus();
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 500);
+    }, 500);
+}
 
-        sliderContainer.addEventListener('touchstart', e => {
-            startX = e.changedTouches[0].screenX;
-            startY = e.changedTouches[0].screenY;
-            isSwiping = true;
-        }, { passive: true });
+// Шаг 3: Ввод Контактов и Финал (Универсальная функция ввода)
+function handleInputSubmit() {
+    const text = chatTextInput.value.trim();
+    if (!text) return; 
 
-        sliderContainer.addEventListener('touchend', e => {
-            if (!isSwiping) return;
-            const endX = e.changedTouches[0].screenX;
-            const endY = e.changedTouches[0].screenY;
-            const diffX = endX - startX;
-            const diffY = endY - startY;
+    // Если бот ждал имя
+    if (inputState === 'name') {
+        bookingData.name = text;
+        chatTextInput.value = '';
+        chatInputArea.style.display = 'none';
+        
+        addMessage(text, 'user');
 
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > 40) { 
-                    if (diffX < 0) moveSlide(1); 
-                    else moveSlide(-1); 
+        setTimeout(() => {
+            addMessage(`Супер, ${text}! И последний шаг: оставь свой номер телефона или ник в Telegram, чтобы тренер мог подтвердить твою запись.`, 'bot');
+            
+            setTimeout(() => {
+                inputState = 'contact';
+                chatTextInput.placeholder = "Телефон или @telegram...";
+                chatTextInput.type = "text";
+                chatInputArea.style.display = 'flex';
+                chatTextInput.focus();
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+        }, 500);
+
+    // Если бот ждал телефон/телеграм
+    } else if (inputState === 'contact') {
+        bookingData.contact = text;
+        chatTextInput.value = '';
+        chatInputArea.style.display = 'none';
+        
+        addMessage(text, 'user');
+
+        setTimeout(() => {
+            addMessage(`Всё готово! Ты записан(а) на пробную тренировку: <b>${bookingData.day}</b>.<br><br>Ждем тебя в зале на Энергетиков 47. Не забудь форму и чистые кроссовки! 🥊`, 'bot');
+            
+            // --- ОТПРАВКА В TELEGRAM ---
+            const BOT_TOKEN = '8629438777:AAGrssy6lYntqi_YjGmApuX_O11uCZ3V3V8'; // Вставь токен бота
+            const CHAT_ID = '8182564494'; // Вставь свой ID (или ID тренера)
+            
+            // Формируем красивое сообщение для тренера
+            const message = `🥊 <b>Новая заявка на пробную тренировку!</b>\n\n` +
+                            `👤 <b>Имя:</b> ${bookingData.name}\n` +
+                            `📅 <b>День:</b> ${bookingData.day}\n` +
+                            `📞 <b>Контакт:</b> ${bookingData.contact}`;
+
+            // Ссылка для запроса к Telegram API
+            const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            // Отправляем данные
+            fetch(tgUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML' // Позволяет использовать жирный шрифт <b>
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Успешно отправлено тренеру!');
                 }
-            }
-            isSwiping = false;
-        });
+            })
+            .catch(error => {
+                console.error('Ошибка отправки в Telegram:', error);
+            });
+
+            setTimeout(() => {
+                showMainMenu();
+            }, 3000);
+        }, 500);
     }
-};
+}
+
+// Отправка по клику или Enter
+chatTextSubmit.addEventListener('click', handleInputSubmit);
+chatTextInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleInputSubmit();
+});
+
+        });
