@@ -18,6 +18,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <style>
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+            }
+            h1 {
+                font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
+                line-height: 1.1 !important;
+            }
+            h2, .section-header h2 {
+                font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
+                line-height: 1.2 !important;
+            }
+            p, .pricing-desc, li, span {
+                font-size: clamp(0.9rem, 4vw, 1rem) !important;
+                line-height: 1.4 !important;
+            }
+            /* Убираем жесткий перенос в главном заголовке, если экран слишком узкий */
+            .hero h1 br {
+                display: none;
+            }
+            /* Адаптация ссылок в футере и контактах, чтобы не вылезали за экран */
+            .cta-section p a, .footer-content a {
+                display: inline-block;
+                max-width: 100%;
+                word-break: break-all;
+            }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -98,7 +134,7 @@
                     </div>
                     <div>
                         <span style="color: var(--accent-bright); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 600;">Главный тренер</span>
-                        <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 10px 0 20px; font-weight: 800; letter-spacing: 0px; text-transform: uppercase;">Алексей Климцев</h2>
+                        <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 8vw, 3.5rem); margin: 10px 0 20px; font-weight: 800; letter-spacing: 0px; text-transform: uppercase;">Алексей Климцев</h2>
                         <p style="margin-bottom: 20px; color: var(--text-muted);">Мастер спорта по боксу с 10-летним стажем. Моя методика — это не просто физика, это стратегия и дисциплина ума.</p>
                         
                         <ul style="list-style: none; color: var(--text-main); font-size: 0.95rem; font-weight: 500;">
@@ -110,8 +146,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
     </section>
 
     <section id="gallery">
