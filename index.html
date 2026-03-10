@@ -29,23 +29,31 @@
                 overflow-wrap: break-word;
                 word-wrap: break-word;
             }
-            h1 {
-                font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
+            
+            /* Аккуратно уменьшаем главный заголовок, чтобы не ломался */
+            .hero h1 {
+                font-size: clamp(3rem, 13vw, 4rem) !important;
+                line-height: 1.05 !important;
+            }
+            
+            /* Защищаем span внутри заголовков от сжатия */
+            h1 span, h2 span {
+                font-size: inherit !important;
+            }
+
+            /* Второстепенные заголовки */
+            h2, .section-header h2 {
+                font-size: clamp(2rem, 8vw, 2.5rem) !important;
                 line-height: 1.1 !important;
             }
-            h2, .section-header h2 {
-                font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
-                line-height: 1.2 !important;
+
+            /* Возвращаем адекватный размер обычному тексту */
+            p, .pricing-desc, li {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
             }
-            p, .pricing-desc, li, span {
-                font-size: clamp(0.9rem, 4vw, 1rem) !important;
-                line-height: 1.4 !important;
-            }
-            /* Убираем жесткий перенос в главном заголовке, если экран слишком узкий */
-            .hero h1 br {
-                display: none;
-            }
-            /* Адаптация ссылок в футере и контактах, чтобы не вылезали за экран */
+            
+            /* Адаптация длинных ссылок */
             .cta-section p a, .footer-content a {
                 display: inline-block;
                 max-width: 100%;
